@@ -10,7 +10,7 @@ by adding `bc_utils` to your list of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:bc_utils, "~> 0.2.0"}
+    {:bc_utils, "~> 0.4.0"}
   ]
 end
 ```

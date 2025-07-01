@@ -12,7 +12,7 @@ in your `mix.exs` file:
 
 def deps do
   [
-    {:bc_utils, "~> 0.2.0"}
+    {:bc_utils, "~> 0.4.0"}
   ]
 end
 
