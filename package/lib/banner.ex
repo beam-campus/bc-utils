@@ -27,9 +27,9 @@ defmodule BCUtils.Banner do
         service_name,
         service_description,
         shoutout,
-        beam_theme_func \\ &cyan_on_true_black/1,
-        campus_theme_func \\ &green_on_true_black/1,
-        description_theme_func \\ &purple_on_true_black/1
+        beam_theme_func \\ &sky_blue_on_true_black/1,
+        campus_theme_func \\ &lime_on_true_black/1,
+        description_theme_func \\ &orange_on_true_black/1
       ) do
     beam_section =
       beam_ascii_art()

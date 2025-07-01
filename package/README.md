@@ -1,6 +1,6 @@
-# BCUtils
+# BEAM Campus Utilities
 
-BCUtils (Beam Campus Utils) is a collection of utilities and novelty helpers for Elixir projects.
+`BCUtils` (BEAM Campus Utilities) is a collection of utilities and novelty helpers for Elixir projects.
 
 ## Installation
 
@@ -10,7 +10,7 @@ by adding `bc_utils` to your list of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:bc_utils, "~> 0.4.0"}
+    {:bc_utils, "~> 0.5.0"}
   ]
 end
 ```

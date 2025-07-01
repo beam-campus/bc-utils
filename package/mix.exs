@@ -4,7 +4,7 @@ defmodule BCUtils.MixProject do
 
   @app_name :bc_utils
   @elixir_version "~> 1.17"
-  @version "0.4.0"
+  @version "0.5.0"
   @source_url "https://github.com/beam-campus/bc-utils"
   #  @homepage_url "https://github.com/beam-campus/ex-esdb"
   @docs_url "https://hexdocs.pm/bc_utils"
@@ -101,6 +101,14 @@ defmodule BCUtils.MixProject do
         "guides/getting_started.md": [
           filename: "getting-started",
           title: "Getting Started"
+        ],
+        "guides/working_with_bitflags.md": [
+          filename: "working-with-bitflags",
+          title: "Working with Bitflags"
+        ],
+        "guides/working_with_colors.md": [
+          filename: "working-with-colors",
+          title: "Working with Colors"
         ],
         "README.md": [
           filename: "readme",
