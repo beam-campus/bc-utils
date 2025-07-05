@@ -4,7 +4,7 @@ defmodule BCUtils.MixProject do
 
   @app_name :bc_utils
   @elixir_version "~> 1.17"
-  @version "0.8.0"
+  @version "0.9.0"
   @source_url "https://github.com/beam-campus/bc-utils"
   #  @homepage_url "https://github.com/beam-campus/ex-esdb"
   @docs_url "https://hexdocs.pm/bc_utils"
