@@ -1,5 +1,20 @@
 # Changelog
 
+## v0.9.0 - 2025-07-05
+
+### Fixed
+
+#### Enhanced Swarm Logging Filters
+- **BCUtils.LoggerFilters**: Fixed `filter_swarm/1` to properly handle `Swarm.Logger` module
+- Added explicit handling for `Swarm.Logger` in addition to other Swarm modules
+- Updated compile-time purging configurations to include `Swarm.Logger`
+- Resolves issue where Swarm info/debug/warning messages were still appearing despite filtering
+
+### Technical Details
+- The `Swarm.Logger` module was generating logs that weren't caught by the original `Elixir.Swarm*` pattern matching
+- Added specific check: `module == Swarm.Logger` to the `is_swarm_module?/1` function
+- Updated both ExESDB Server and Gateway configurations to include `[module: Swarm.Logger, level_lower_than: :error]`
+
 ## v0.8.0 - 2025-07-05
 
 ### Added

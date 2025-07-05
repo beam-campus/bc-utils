@@ -92,7 +92,8 @@ defmodule BCUtils.LoggerFilters do
   # Check if a module is part of Swarm
   defp is_swarm_module?(module) when is_atom(module) do
     module_string = Atom.to_string(module)
-    String.starts_with?(module_string, "Elixir.Swarm")
+    String.starts_with?(module_string, "Elixir.Swarm") or
+    module == Swarm.Logger  # Handle Swarm.Logger specifically
   end
 
   defp is_swarm_module?(_), do: false
