@@ -4,7 +4,7 @@ defmodule BCUtils.MixProject do
 
   @app_name :bc_utils
   @elixir_version "~> 1.17"
-  @version "0.5.0"
+  @version "0.8.0"
   @source_url "https://github.com/beam-campus/bc-utils"
   #  @homepage_url "https://github.com/beam-campus/ex-esdb"
   @docs_url "https://hexdocs.pm/bc_utils"
@@ -81,6 +81,7 @@ defmodule BCUtils.MixProject do
       {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
       {:eunit_formatters, "~> 0.5", only: [:test], runtime: false},
       {:jason, "~> 1.4", optional: true},
+      {:phoenix_pubsub, "~> 2.1", optional: true},
       {:uuidv7, "~> 1.0"},
       {:elixir_uuid, "~> 1.2"}
     ]
@@ -109,6 +110,10 @@ defmodule BCUtils.MixProject do
         "guides/working_with_colors.md": [
           filename: "working-with-colors",
           title: "Working with Colors"
+        ],
+        "guides/resolving_phoenix_pubsub_conflicts.md": [
+          filename: "resolving-phoenix-pubsub-conflicts",
+          title: "Resolving Phoenix.PubSub Conflicts"
         ],
         "README.md": [
           filename: "readme",

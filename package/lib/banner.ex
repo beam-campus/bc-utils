@@ -15,6 +15,54 @@ defmodule BCUtils.Banner do
   #   * You can use `BCUtils.ColorFuncs` to colorize name, description and shoutout.
   #   * Add an emoji to the shoutout for extra fun
   """
+
+  @spec display_text_banner(
+          service_name :: String.t(),
+          service_description :: String.t(),
+          shoutout :: String.t(),
+          beam_theme_func :: (String.t() -> String.t()),
+          campus_theme_func :: (String.t() -> String.t()),
+          description_theme_func :: (String.t() -> String.t())
+        ) :: :ok
+  def display_text_banner(
+        service_name,
+        service_description,
+        shoutout,
+        beam_theme_func \\ &sky_blue_on_true_black/1,
+        campus_theme_func \\ &lime_on_true_black/1,
+        description_theme_func \\ &purple_on_true_black/1
+      ) do
+    beam_section =
+      beam_text()
+      |> beam_theme_func.()
+
+    campus_section =
+      campus_text()
+      |> campus_theme_func.()
+
+    service_name =
+      service_name
+      |> description_theme_func.()
+
+    service_description =
+      service_description
+      |> description_theme_func.()
+
+    shoutout =
+      shoutout
+      |> description_theme_func.()
+
+    description_section =
+      """
+                #{service_name}
+           #{service_description}
+                 #{shoutout}
+
+      """
+
+    show_banner(beam_section, campus_section, description_section)
+  end
+
   @spec display_banner(
           service_name :: String.t(),
           service_description :: String.t(),
@@ -29,7 +77,7 @@ defmodule BCUtils.Banner do
         shoutout,
         beam_theme_func \\ &sky_blue_on_true_black/1,
         campus_theme_func \\ &lime_on_true_black/1,
-        description_theme_func \\ &orange_on_true_black/1
+        description_theme_func \\ &indigo_on_true_black/1
       ) do
     beam_section =
       beam_ascii_art()
@@ -55,7 +103,7 @@ defmodule BCUtils.Banner do
 
                          #{service_name}
                     #{service_description}
-                          #{shoutout}
+                        #{shoutout}
 
 
     """
@@ -74,6 +122,16 @@ defmodule BCUtils.Banner do
              ██████╔╝███████╗██║  ██║██║ ╚═╝ ██║
              ╚═════╝ ╚══════╝╚═╝  ╚═╝╚═╝     ╚═╝
     """
+  end
+
+  @spec beam_text() :: String.t()
+  defp beam_text do
+    "BEAM"
+  end
+
+  @spec campus_text() :: String.t()
+  defp campus_text do
+    "Campus"
   end
 
   defp campus_ascii_art do

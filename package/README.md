@@ -10,11 +10,13 @@ by adding `bc_utils` to your list of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:bc_utils, "~> 0.5.0"}
+    {:bc_utils, "~> MAJOR.MINOR.PATCH"}
   ]
 end
 ```
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at <https://hexdocs.pm/bc_utils>.
+If you want to retrieve the latest version of the package, you can do so by running:
+
+```bash
+mix hex.info bc_utils
+```
