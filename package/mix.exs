@@ -115,6 +115,10 @@ defmodule BCUtils.MixProject do
           filename: "resolving-phoenix-pubsub-conflicts",
           title: "Resolving Phoenix.PubSub Conflicts"
         ],
+        "guides/filtering_swarm_logs.md": [
+          filename: "filtering-swarm-logs",
+          title: "Filtering Swarm Logs"
+        ],
         "README.md": [
           filename: "readme",
           title: "Read Me"
