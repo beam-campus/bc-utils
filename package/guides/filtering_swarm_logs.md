@@ -98,6 +98,36 @@ config :logger, :console,
   filters: [errors_only: {BCUtils.LoggerFilters, :errors_and_warnings_only}]
 ```
 
+## Integration with ExESDB Consensus Filters
+
+When using BCUtils.LoggerFilters with ExESDB, you can combine both sets of filters for comprehensive noise reduction:
+
+```elixir
+# ExESDB defines its own filters for Ra/Khepri consensus libraries
+# BCUtils provides filters for clustering libraries (Swarm/LibCluster)
+# They work together seamlessly
+
+config :logger, :console,
+  level: :info,
+  filters: [
+    # BCUtils filters for clustering libraries
+    swarm_noise: {BCUtils.LoggerFilters, :filter_swarm},
+    libcluster_noise: {BCUtils.LoggerFilters, :filter_libcluster},
+    # ExESDB filters for consensus libraries (if using ExESDB)
+    ra_noise: {ExESDB.LoggerFilters, :filter_ra},
+    khepri_noise: {ExESDB.LoggerFilters, :filter_khepri}
+  ]
+```
+
+### Application-Level Configuration for ExESDB + BCUtils
+
+```elixir
+# Reduce noise at the source
+config :swarm, log_level: :error        # BCUtils handles this
+config :ra, log_level: :warning          # ExESDB handles this
+config :khepri, log_level: :warning      # ExESDB handles this
+```
+
 ## Complete Example Configuration
 
 ### ExESDB Server (config/dev.exs)

@@ -4,7 +4,7 @@ defmodule BCUtils.MixProject do
 
   @app_name :bc_utils
   @elixir_version "~> 1.17"
-  @version "0.9.0"
+  @version "0.10.0"
   @source_url "https://github.com/beam-campus/bc-utils"
   #  @homepage_url "https://github.com/beam-campus/ex-esdb"
   @docs_url "https://hexdocs.pm/bc_utils"
@@ -26,20 +26,27 @@ defmodule BCUtils.MixProject do
       releases: releases(),
       start_permanent: Mix.env() == :prod,
       test_coverage: [tool: coverage_tool()],
-      preferred_cli_env: [coveralls: :test]
+      preferred_cli_env: [
+        coveralls: :test,
+        "coveralls.detail": :test,
+        "coveralls.post": :test,
+        "coveralls.html": :test,
+        "test.watch": :test,
+        credo: :dev,
+        dialyzer: :dev
+      ]
     ]
   end
 
   defp releases,
     do: [
-      ex_esdb: [
+      bc_utils: [
         include_erts: true,
         include_executables_for: [:unix],
         steps: [:assemble, :tar],
         applications: [
           runtime_tools: :permanent,
-          logger: :permanent,
-          os_mon: :permanent
+          logger: :permanent
         ]
       ]
     ]
@@ -49,10 +56,7 @@ defmodule BCUtils.MixProject do
     do: [
       extra_applications:
         [
-          :logger,
-          :eex,
-          :os_mon,
-          :runtime_tools
+          :logger
         ] ++ extra_applications(Mix.env())
     ]
 
@@ -74,22 +78,33 @@ defmodule BCUtils.MixProject do
 
   defp deps do
     [
+      # Development tools
       {:dialyze, "~> 0.2.0", only: [:dev], runtime: false},
       {:dialyxir, "~> 1.0", only: [:dev], runtime: false},
       {:ex_doc, "~> 0.37", only: [:dev], runtime: false},
-      {:mix_test_watch, "~> 1.1", only: [:dev, :test], runtime: false},
       {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
+      
+      # Testing tools
+      {:mix_test_watch, "~> 1.1", only: [:dev, :test], runtime: false},
       {:eunit_formatters, "~> 0.5", only: [:test], runtime: false},
+      {:excoveralls, "~> 0.18", only: [:test], runtime: false},
+      
+      # Runtime dependencies - optional
       {:jason, "~> 1.4", optional: true},
       {:phoenix_pubsub, "~> 2.1", optional: true},
+      
+      # Runtime dependencies - required
       {:uuidv7, "~> 1.0"},
-      {:elixir_uuid, "~> 1.2"}
+      {:elixir_uuid, "~> 1.2"},
+      {:telemetry, "~> 1.0"}
     ]
   end
 
   defp coverage_tool do
-    # Optional coverage configuration
-    {:cover, [output: "_build/cover"]}
+    case System.get_env("CI") do
+      "true" -> ExCoveralls
+      _ -> {:cover, [output: "_build/cover"]}
+    end
   end
 
   defp docs do
@@ -118,6 +133,10 @@ defmodule BCUtils.MixProject do
         "guides/filtering_swarm_logs.md": [
           filename: "filtering-swarm-logs",
           title: "Filtering Swarm Logs"
+        ],
+        "guides/working_with_banners.md": [
+          filename: "working-with-banners",
+          title: "Working with Banners"
         ],
         "README.md": [
           filename: "readme",

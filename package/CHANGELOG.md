@@ -1,5 +1,47 @@
 # Changelog
 
+## v0.10.0 - 2025-07-05
+
+### Enhanced
+
+#### Improved Logging Filter Documentation and Usage
+- **Enhanced Examples**: Updated filtering examples for better ExESDB integration patterns
+- **Multi-Layer Filtering**: Documented comprehensive filtering strategies combining application-level config with runtime filters
+- **Production Patterns**: Added production-ready configurations for distributed applications using Swarm and LibCluster
+- **ExESDB Integration**: Documented how BCUtils.LoggerFilters integrates with ExESDB's consensus layer logging
+
+### Technical Improvements
+- **Better Module Detection**: Enhanced `is_swarm_module?/1` and `is_libcluster_module?/1` for more reliable filtering
+- **Metadata Handling**: Improved handling of log events without MFA metadata
+- **Performance**: Optimized filter functions for minimal runtime overhead
+
+### Documentation
+- **Updated Guide**: Enhanced "Filtering Swarm Logs" guide with ExESDB-specific patterns
+- **Usage Examples**: Added comprehensive examples for distributed event store applications
+- **Best Practices**: Documented environment-specific filtering strategies (dev/test/prod)
+
+### Benefits for ExESDB Users
+- **Cleaner Logs**: Significant reduction in Swarm and LibCluster noise during cluster formation
+- **Better Debugging**: Focus on application logic instead of clustering protocol chatter
+- **Production Ready**: Minimal logging overhead while preserving error visibility
+- **Consensus Layer Ready**: Works seamlessly with Ra/Khepri-based applications like ExESDB
+
+### Usage with ExESDB
+
+```elixir
+# In ExESDB config - BCUtils filters work alongside ExESDB's own filters
+config :logger, :console,
+  level: :info,
+  filters: [
+    # BCUtils filters for clustering libraries
+    swarm_noise: {BCUtils.LoggerFilters, :filter_swarm},
+    libcluster_noise: {BCUtils.LoggerFilters, :filter_libcluster},
+    # ExESDB's own filters for consensus libraries (defined in ExESDB.LoggerFilters)
+    ra_noise: {ExESDB.LoggerFilters, :filter_ra},
+    khepri_noise: {ExESDB.LoggerFilters, :filter_khepri}
+  ]
+```
+
 ## v0.9.0 - 2025-07-05
 
 ### Fixed

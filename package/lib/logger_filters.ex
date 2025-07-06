@@ -8,6 +8,25 @@ defmodule BCUtils.LoggerFilters do
   """
 
   @doc """
+  Retrieves the list of default filters used to reduce logging noise from
+  common libraries such as Swarm and LibCluster. These filters focus on
+  allowing error and critical messages to pass while filtering out less
+  severe log messages.
+
+  ## Examples
+
+      iex> filters = BCUtils.LoggerFilters.default_filters()
+      [{:swarm_filter, {BCUtils.LoggerFilters, :filter_swarm}},
+       {:libcluster_filter, {BCUtils.LoggerFilters, :filter_libcluster}}]
+  """
+  def default_filters do
+    [
+      swarm_filter: {__MODULE__, :filter_swarm},
+      libcluster_filter: {__MODULE__, :filter_libcluster}
+    ]
+  end
+
+@doc """
   Filter function to reduce Swarm logging noise.
   
   This filter allows only :error level messages from Swarm modules to pass through,
@@ -16,12 +35,11 @@ defmodule BCUtils.LoggerFilters do
   ## Usage
   
   Add to your logger configuration:
-  
+
       config :logger, :console,
-        format: "$time [$level] $message\\n",
+        format: "$time [$level] $message\n",
         metadata: :all,
-        filters: [swarm_filter: {BCUtils.LoggerFilters, :filter_swarm}]
-  
+        filters: BCUtils.LoggerFilters.default_filters()
   """
   def filter_swarm(%{meta: %{mfa: {module, _function, _arity}}, level: level} = log_event) do
     case {is_swarm_module?(module), level} do
@@ -30,7 +48,7 @@ defmodule BCUtils.LoggerFilters do
       {false, _} -> log_event      # Allow all non-Swarm messages
     end
   end
-
+  
   # Handle log events without MFA metadata
   def filter_swarm(%{level: _level} = log_event), do: log_event
 
@@ -46,7 +64,7 @@ defmodule BCUtils.LoggerFilters do
       {false, _} -> log_event      # Allow all non-LibCluster messages
     end
   end
-
+  
   def filter_libcluster(%{level: _level} = log_event), do: log_event
 
   @doc """
