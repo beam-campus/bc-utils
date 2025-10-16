@@ -83,16 +83,16 @@ defmodule BCUtils.MixProject do
       {:dialyxir, "~> 1.0", only: [:dev], runtime: false},
       {:ex_doc, "~> 0.37", only: [:dev], runtime: false},
       {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
-      
+
       # Testing tools
       {:mix_test_watch, "~> 1.1", only: [:dev, :test], runtime: false},
       {:eunit_formatters, "~> 0.5", only: [:test], runtime: false},
       {:excoveralls, "~> 0.18", only: [:test], runtime: false},
-      
+
       # Runtime dependencies - optional
       {:jason, "~> 1.4", optional: true},
       {:phoenix_pubsub, "~> 2.1", optional: true},
-      
+
       # Runtime dependencies - required
       {:uuidv7, "~> 1.0"},
       {:elixir_uuid, "~> 1.2"},
